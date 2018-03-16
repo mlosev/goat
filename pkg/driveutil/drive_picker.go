@@ -2,6 +2,7 @@ package driveutil
 
 import (
 	"fmt"
+	"strconv"
 )
 
 //RandDriveNamePicker returns a /dev/xvd[b-z] string, whichever is the first that doesn't exist
@@ -25,15 +26,15 @@ func RandDriveNamePicker() (string, error) {
 func RandRaidDriveNamePicker() (string, error) {
 	ctr := 0
 	deviceName := "/dev/md"
-	runes := []rune("0123456789")
+	maxDevices := 99
 	for {
-		if ctr >= len(runes) {
+		if ctr >= maxDevices {
 			return "", fmt.Errorf("Ran out of raid drive names")
 		}
-		if !DoesDriveExist(deviceName + string(runes[ctr])) {
+		if !DoesDriveExist(deviceName + strconv.FormatInt(int64(ctr), 10)) {
 			break
 		}
 		ctr++
 	}
-	return deviceName + string(runes[ctr]), nil
+	return deviceName + strconv.FormatInt(int64(ctr), 10), nil
 }
