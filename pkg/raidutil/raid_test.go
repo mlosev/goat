@@ -22,7 +22,7 @@ func TestCreateRaidArray(t *testing.T) {
 
 	bufString := buf.String()
 
-	if !strings.Contains(bufString, "RAID: Creating RAID drive: mdadm [--create /dev/md0 --level=0 --name='GOAT-raid_test_1' --raid-devices=2 drive_test_1 drive_test_2]") {
+	if !strings.Contains(bufString, "RAID: Creating RAID drive: mdadm [--create /dev/md0 --metadata=1 --level=0 --name='GOAT-raid_test_1' --raid-devices=2 drive_test_1 drive_test_2]") {
 		t.Errorf("logged wrong thing. Actual: %s", bufString)
 	}
 }

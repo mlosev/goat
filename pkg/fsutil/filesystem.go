@@ -53,7 +53,11 @@ func CreateFilesystem(driveName string, desiredFs string, label string, dryRun b
 		return nil
 	}
 
-	if _, err := execute.Command(cmd, args); err != nil {
+	if fsOut, err := execute.Command(cmd, args); err != nil {
+		log.WithError(err).WithFields(log.Fields{
+			"cmd":  cmd,
+			"args": args,
+		}).Errorf("FILESYSTEM: Error creating fs; stdout: %s; stderr: %s;", fsOut.Stdout, fsOut.Stderr)
 		return err
 	}
 	return nil
