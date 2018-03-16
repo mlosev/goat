@@ -1,9 +1,10 @@
 package raidutil
 
 import (
-	log "github.com/sirupsen/logrus"
 	"os"
 	"strconv"
+
+	log "github.com/sirupsen/logrus"
 
 	"github.com/sevagh/goat/pkg/driveutil"
 	"github.com/sevagh/goat/pkg/execute"
@@ -30,6 +31,7 @@ func CreateRaidArray(driveNames []string, volName string, raidLevel int, dryRun 
 	args = []string{
 		"--create",
 		raidDriveName,
+		"--metadata=1",
 		"--level=" + strconv.Itoa(raidLevel),
 		nameString,
 		"--raid-devices=" + strconv.Itoa(len(driveNames)),
